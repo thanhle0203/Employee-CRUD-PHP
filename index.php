@@ -12,6 +12,43 @@
 </head>
 <body>
     <?php require_once 'process.php'; ?>
+    <div class="container">
+
+    <?php
+        $mysqli = new mysqli('localhost', 'root', 'ella123', 'Employee_CRUD', 3307) or 
+        die (mysqli_error($mysqli));
+        $result = $mysqli->query("SELECT * FROM data") or die($mysqli->error);
+        #pre_r($result);
+        ?>
+
+        <div class="row justify-content-center">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Location</th>
+                        <th colspan="2">Action</th>
+                    </tr>
+                </thead>
+        <?php
+            while ($row = $result->fetch_assoc()): ?>
+                <tr>
+                    <td><?php echo $row['name']; ?></td>
+                    <td><?php echo $row['location']; ?></td>
+                    <td></td>
+                </tr>
+            <?php endwhile; ?>
+            </table>
+        </div>
+        <?php
+
+        function pre_r($array) {
+            echo '<pre>';
+            print_r($array);
+            echo '</pre>';
+        }
+    ?>
+
     <div class="row justify-content-center">
         <form action="process.php" method="POST">
             <div class="form-group">
@@ -29,6 +66,7 @@
             </div>
             
         </form>
+    </div>
     </div>
 </body>
 </html>
